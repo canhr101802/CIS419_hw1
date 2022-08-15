@@ -1,0 +1,76 @@
+#include <iostream>
+
+using namespace std;
+
+int main() {
+//	freopen("input.txt", "r", stdin);
+
+	int T;
+	cin >> T;
+
+	for (int tc = 1; tc <= T; tc++) {
+		char c[2];
+		cin >> c;
+
+		int words;
+		cin >> words;
+
+		int num[9][1];
+		
+		for (int i = 0; i < 10; i++)
+		    num[i][0] = 0;
+
+		for (int input = 0; input < words; input++) {
+			char w[3];
+			cin >> w;
+
+			if (w[0] == 'Z')
+				num[0][0]++;
+			else if (w[0] == 'O')
+				num[1][0]++;
+			else if (w[0] == 'T' && w[1] == 'W')
+				num[2][0]++;
+			else if (w[0] == 'T' && w[1] == 'H')
+				num[3][0]++;
+			else if (w[0] == 'F' && w[1] == 'O')
+				num[4][0]++;
+			else if (w[0] == 'F' && w[1] == 'I')
+				num[5][0]++;
+			else if (w[0] == 'S' && w[1] == 'I')
+				num[6][0]++;
+			else if (w[0] == 'S' && w[1] == 'V')
+				num[7][0]++;
+			else if (w[0] == 'E')
+				num[8][0]++;
+			else num[9][0]++;
+		}
+		
+		cout << "#" << tc << endl;
+		for (int i = 0; i < 10; i++) {
+			while (num[i][0] > 0) {
+				if (i == 0)
+					cout << "ZRO ";
+				else if (i == 1)
+					cout << "ONE ";
+				else if (i == 2)
+					cout << "TWO ";
+				else if (i == 3)
+					cout << "THR ";
+				else if (i == 4)
+					cout << "FOR ";
+				else if (i == 5)
+					cout << "FIV ";
+				else if (i == 6)
+					cout << "SIX ";
+				else if (i == 7)
+					cout << "SVN ";
+				else if (i == 8)
+					cout << "EGT ";
+				else cout << "NIN ";
+
+				num[i][0]--;
+			}
+		} 
+	}
+	return 0;
+}
