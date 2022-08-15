@@ -1,0 +1,119 @@
+#include <iostream>
+using namespace std ; 
+
+bool dichuyen(int mang[50][50] , int buoc[500] , int n , int soBuoc , int x , int y)
+{
+	for(int i = 0 ; i < soBuoc ; i++)
+	{
+		int check = buoc[i] ; 
+		switch (check)
+		{
+		case 1 :
+			if(x-1 >= 0 && (mang[x-1][y] != 1 ))
+			{
+			x-- ; 
+			}
+			break ; 
+		case 2 :
+			if( y+1 < n && (mang[x][y+1] != 1 ))
+			{
+			y++ ; 
+			}
+			break ;
+		case 3 :
+			if( x+1 < n && (mang[x+1][y] != 1 ))
+			{
+			x++ ; 
+			}
+			break ; 
+		case 4 :
+			if( y-1 >= 0 && (mang[x][y-1] != 1))
+			{
+			y-- ; 
+			}
+			break ;
+		}
+	}
+	if(mang[x][y] == 3) 
+	{
+		return true; 
+	}
+	else 
+	{
+		return false; 
+	}
+}
+int main()
+{
+	freopen("input.txt", "r" , stdin) ;
+	int T ; 
+	cin >> T ; 
+	for(int tc = 1 ; tc <= T ; tc++)
+	{
+		int n ; 
+		cin >> n ; 
+		int mang[50][50];
+		int xS , yS , xE , yE; 
+		for(int i = 0 ; i<n ; i++)
+		{
+			for(int j = 0 ; j<n ; j++)
+			{
+				cin >> mang[i][j] ;
+				if(mang[i][j] == 2)
+				{
+					xS = i ; 
+					yS = j ; 
+				}
+			}
+		}
+		int soBuoc ; 
+		cin >> soBuoc ; 
+		int buoc[500] ; 
+		for(int i = 0 ; i < soBuoc ; i++)
+		{
+			cin >> buoc[i] ; 
+		}
+		int xT , yT ; 
+		bool c = false; 
+		if( dichuyen(mang ,buoc , n , soBuoc , xS , yS))
+		{
+			cout <<"#" << tc <<" "<< "0" << endl; 
+		}
+		else
+		{
+			for(int i = 0 ; i<n ; i++)
+				{
+					for(int j = 0 ; j<n ; j++)
+					{
+						if(mang[i][j] == 0)
+						{
+							mang[i][j] = 1 ; 
+							if( dichuyen(mang ,buoc , n , soBuoc , xS , yS) )
+							{
+								xT = i ; 
+								yT = j ;
+								i = n ; 
+								c = true ; 
+								break ; 
+							}
+							else{
+								mang[i][j] = 0 ;
+							}
+						}
+					}
+				}
+			if(c)
+			{
+			cout <<"#" <<tc <<" "<< xT + 1 << " " << yT + 1 <<endl; 
+			}
+			else 
+			{
+				cout <<"#" << tc << " -1" << endl; 
+			}
+		}
+		
+	}
+	return 0 ; 
+}
+
+
