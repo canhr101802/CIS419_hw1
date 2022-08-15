@@ -1,0 +1,150 @@
+#include <iostream> 
+
+using namespace std ; 
+
+int convert(char s[])
+{
+	int number = 0 ; 
+	for(int i = 0 ; s[i] != 0 ; i++)
+	{
+		int a = s[i] - '0' ; 
+		number = number*10 +a; 
+	}
+	return number ; 
+}
+
+int main()
+{
+	freopen("input.txt", "r" ,stdin) ; 
+	int T ;
+	cin >> T ; 
+	for(int tc = 1 ; tc <= T ; tc++)
+	{
+		cout << "#" << tc << " " ; 
+		int q ; 
+		cin >> q ; 
+		int mang[51][27] ={0} ;
+		for(int i = 0 ; i < q ; i++)
+		{
+			int cmd ; 
+			cin >> cmd ; 
+			if(cmd == 1)
+			{
+				char str[3] ; 
+				cin >> str ; 
+				int number ; 
+				cin >> number ; 
+				int cot = str[0] - 'A' ; 
+				char sHang[3] ; 
+				int k = 0 ; 
+				for(int j = 1 ; str[j] != 0 ; j++)
+				{
+					sHang[k] = str[j] ; 
+					k++ ; 
+				}
+				sHang[k] = 0 ; 
+				int hang = convert(sHang) ; 
+				mang[hang][cot] = number ; 
+			}
+
+			else {
+				int thanhPhan ; 
+				cin >> thanhPhan ; 
+				int sum = 0 ; 
+				for(int j = 0 ; j < thanhPhan ; j++)
+				{
+					char str[7] = "" ; 
+					cin >> str ; 
+					if( str[0] >= '0' && str[0] <= '9' ) // la mot so
+					{
+						sum += convert(str) ; 
+					}
+					else 
+					{
+						if(str[3] == 0) // mot o
+						{
+							int cot = str[0] - 'A' ; 
+							char sHang[3] = ""; 
+							int k = 0 ; 
+							for(int p = 1 ; str[p] != 0 ; p++)
+							{
+								sHang[k] = str[p] ; 
+								k++ ; 
+							}
+							sHang[k] = 0 ; 
+							int hang = convert(sHang) ; 
+							sum += mang[hang][cot] ; 
+						}
+						else // la 1 hang cot
+						{
+							// Tim toa do diem 1
+							int cot1 = str[0] - 'A' ; 
+							int p = 1 ; 
+							char sHang[3] = "" ; 
+							int k = 0 ; 
+							while(str[p] != ':')
+							{
+								sHang[k] = str[p] ; 
+								k++ ; 
+								p++ ; 
+							}
+							sHang[k] = 0 ; 
+							int hang1 = convert(sHang) ; 
+							p++ ; 
+							// Tim toa do diem hai
+							int cot2 = str[p] - 'A' ;
+							p++ ; 
+							k = 0 ; 
+							while(str[p] != 0)
+							{
+								sHang[k] = str[p] ; 
+								k++ ; 
+								p++ ; 
+							}
+							sHang[k] = 0 ; 
+							int hang2 = convert(sHang) ; 
+							if(hang1 == hang2) // cung hang
+							{
+								if(cot1<cot2)
+								{
+									for(int x = cot1 ; x <= cot2 ; x++)
+									{
+										sum += mang[hang1][x] ; 
+									}
+								}
+								else {
+									for(int x = cot2 ; x <= cot1 ; x++)
+									{
+										sum += mang[hang1][x] ; 
+									}
+								}
+								
+							}
+							else // cung cot
+							{
+								if(hang1 < hang2)
+								{
+									for(int x = hang1 ; x <= hang2 ; x++)
+									{
+										sum += mang[x][cot1] ; 
+									}
+								}
+								else {
+									for(int x = hang2 ; x <= hang1 ; x++)
+									{
+										sum += mang[x][cot1] ; 
+									}
+								}
+							}
+						}
+					}
+
+				}
+			cout << sum << " " ; 
+			}
+		}
+		cout << endl ; 
+	}
+	return 0 ; 
+}
+
