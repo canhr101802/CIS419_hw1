@@ -1,0 +1,38 @@
+#include <iostream>
+
+using namespace std ; 
+
+int main()
+{
+	freopen("input.txt", "r" , stdin); 
+	int T ; 
+	cin >> T ; 
+	for(int tc = 1 ; tc <= T ; tc++)
+	{
+		int N , M ;
+		cin >> N ;
+		cin >> M ; 
+		int mang[101] ; 
+		for(int i = 0 ; i < N ; i++)
+		{
+			cin >> mang[i] ; 
+		}
+		int TongTS = M ; 
+		for(int i = 0 ; i < N ; i++)
+		{
+			if(mang[i] < mang[i+1])
+			{
+				int soCP = TongTS/mang[i] ; 
+				int soTT = soCP * mang[i] ; 
+				TongTS -= soTT ; 
+
+				int SotienThuduoc = soCP * mang[i+1] ; 
+				TongTS += SotienThuduoc ; 
+			}
+		}
+		
+		
+		cout << "#" <<tc<<" " << TongTS - M <<endl ;
+		}
+	return 0 ; 
+}
