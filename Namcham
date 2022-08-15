@@ -1,0 +1,50 @@
+#include <iostream>
+
+using namespace std ; 
+
+int main()
+{
+	freopen("input.txt" , "r" , stdin) ; 
+	for(int tc = 1 ; tc <= 10 ; tc ++)
+	{
+		int n ; 
+		cin >> n ;
+		int a[101][101] ; 
+		for(int i = 0 ; i < 100 ; i++)
+		{
+			for(int j = 0 ; j < 100 ; j++)
+			{
+				cin >> a[i][j] ; 
+			}
+		}
+
+		int dem = 0 ; 
+
+		for(int j = 0 ; j < 100 ; j++)
+		{
+			bool isRed = false ; 
+			for(int i = 0 ; i < 100 ; i++)
+			{
+				if(isRed)
+				{
+					if(a[i][j] == 2)
+					{
+						dem++ ; 
+						isRed = false ; 
+					}
+				}
+				else
+				{
+					if(a[i][j] == 1)
+					{
+						isRed = true ; 
+					}
+				}
+			}
+		}
+		
+
+		cout << "#" << tc << " " << dem << endl ;  
+	}
+	return 0 ; 
+}
